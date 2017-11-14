@@ -27,7 +27,7 @@ class PhotosController < ApplicationController
         size: photo.image_file_size,
         src: photo.image(:thumb)
       }
-      photo.push(new_photo)
+      photos.push(new_photo)
     end
     render json: { image: photos }
   end

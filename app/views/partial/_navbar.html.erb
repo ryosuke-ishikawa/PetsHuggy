@@ -18,25 +18,45 @@
         <!--ログインしていないとき-->
           <li><%= link_to "シッターになる", new_listing_path %></li>
           <li><a href="#">利用の流れ</a></li>
-          <li><%= link_to "アカウント作成", new_user_registration_path %></li>
-          <li><%= link_to "ログイン",  user_session_path %></li>
+          <li><%= link_to new_user_registration_path do %>
+          <i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp; アカウント作成</li>
+          <% end %>
+          <li><%= link_to user_session_path do %>
+          <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp; ログイン</li>
+          <% end %>
         <% else %>
         <!--ログインしているとき-->
           <li><%= link_to "シッターになる", new_listing_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <% if current_user.provider %>  
+              <% if current_user.provider.present? %>  
                 <!--認証ログインをしているとき-->
                 <%= image_tag current_user.image, class:"img-circle profile-0" %>
                 <%= current_user.name %>
               <% else %>
-                <%= current_user.email %>
+                <%= current_user.email.split("@")[0] %>
               <% end %>
-
+              <span class = "caret"></span>
+            </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "プロフィール", user_path(current_user) %></li>
-              <li><%= link_to "ログアウト",  destroy_user_session_path, method: :delete %></li>
-              <li><%= link_to "プロフィール編集", edit_user_registration_path(current_user) %></li>
+              <li><%= link_to user_path(current_user) do %>
+              <i class="fa fa-user" aria-hidden="true"></i></i>&nbsp; プロフィール</li>
+              <% end %>
+              <li><%= link_to edit_user_registration_path(current_user) do %>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp; プロフィール編集</li>
+              <% end %>
+              <li><%= link_to listings_path do %>
+              <i class="fa fa-list" aria-hidden="true"></i>&nbsp; リスティング管理</li>
+              <% end %>
+              <li><%= link_to reservations_path do %>
+              <i class="fa fa-list" aria-hidden="true"></i>&nbsp; ペットを預ける</li>
+              <% end %>
+              <li><%= link_to reserved_path do %>
+              <i class="fa fa-list" aria-hidden="true"></i>&nbsp; シッター予定</li>
+              <% end %>
+              <li><%= link_to destroy_user_session_path, method: :delete  do %>
+              <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; ログアウト</li>
+              <% end %>
             </ul>
           </li>
         <% end %>

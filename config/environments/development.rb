@@ -50,4 +50,5 @@ Rails.application.configure do
       s3_region: ENV['AWS_REGION'],
     }
   }
+  BetterErrors::Middleware.allow_ip! "127.0.0.0/8"
 end
