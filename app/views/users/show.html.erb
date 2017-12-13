@@ -26,6 +26,13 @@
         <% end %>
       </div>
       
+      <!--send message ボタン-->
+      <% if current_user != @user %>
+      <div class="row-space-2">
+        <%= link_to "メッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-danger btn-full" %>
+      </div>
+      <% end %>
+      
       <div class="panel panel-default verification hidden-xs hidden-sm">
         <div class="panel-heading">
             認証済みID
